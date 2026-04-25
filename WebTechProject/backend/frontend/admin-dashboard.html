@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — MealMitra</title>
+    <meta name="description"
+        content="Platform admin overview — analytics, user management, and system health for MealMitra." />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <div class="dashboard-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="s-icon">🌾</div>
+                    <span>MealMitra</span>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="user-avatar">⚙️</div>
+                <h4>Platform Admin</h4>
+                <p>System Administrator</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="adminShowSection('admin-overview')">
+                    <span class="nav-icon">📊</span> Dashboard
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-analytics')">
+                    <span class="nav-icon">📈</span> Analytics
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-donors')">
+                    <span class="nav-icon">🍽️</span> Manage Donors
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-ngos')">
+                    <span class="nav-icon">🤝</span> Manage NGOs
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-listings')">
+                    <span class="nav-icon">📋</span> All Listings
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-reports')">
+                    <span class="nav-icon">📑</span> Reports
+                </div>
+                <div class="nav-item" onclick="adminShowSection('admin-settings')">
+                    <span class="nav-icon">🔧</span> System Settings
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="nav-item" style="text-decoration:none;">
+                    <span class="nav-icon">🚪</span> Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">☰</button>
+                    <h2 id="adminPageTitle">📊 Admin Dashboard</h2>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-icon">🔔</div>
+                    <div class="topbar-icon">🔍</div>
+                    <div class="admin-chip">⚙️ Admin</div>
+                    <div class="d-date" id="adminDate"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+
+                <!-- ===== ADMIN OVERVIEW ===== -->
+                <section id="s-admin-overview" class="dash-section">
+                    <div class="welcome-bar">
+                        <div>
+                            <h3>Platform Overview ⚡</h3>
+                            <p>All systems operational · Last updated just now</p>
+                        </div>
+                        <div style="display:flex;gap:10px;">
+                            <button class="btn btn-outline btn-sm" onclick="showToast('Report downloaded!','success')"
+                                id="dlReportBtn">📥 Download Report</button>
+                            <button class="btn btn-primary btn-sm" onclick="adminShowSection('admin-analytics')"
+                                id="viewAnalyticsBtn">📊 Full Analytics</button>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="summary-grid" style="grid-template-columns:repeat(4,1fr);">
+                        <div class="summary-card">
+                            <div class="summary-icon si-green">🍽️</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="124650">0</h3>
+                                <p>Total Meals Rescued</p>
+                                <span class="trend trend-up">↑ 23% this month</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-orange">🏢</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="340">0</h3>
+                                <p>Active Donors</p>
+                                <span class="trend trend-up">↑ 12 this week</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-blue">🤝</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="89">0</h3>
+                                <p>Partner NGOs</p>
+                                <span class="trend trend-up">↑ 3 this month</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-red">🌱</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="28500">0</h3>
+                                <p>kg CO₂ Emissions Saved</p>
+                                <span class="trend trend-up">↑ 8% this month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary KPIs -->
+                    <div class="secondary-kpis">
+                        <div class="kpi-mini"><span class="kpi-icon">👥</span>
+                            <div><strong class="count-up" data-target="6200">0</strong>
+                                <p>Total Volunteers</p>
+                            </div>
+                        </div>
+                        <div class="kpi-mini"><span class="kpi-icon">🏙️</span>
+                            <div><strong>47</strong>
+                                <p>Cities Active</p>
+                            </div>
+                        </div>
+                        <div class="kpi-mini"><span class="kpi-icon">📋</span>
+                            <div><strong class="count-up" data-target="218">0</strong>
+                                <p>Active Listings</p>
+                            </div>
+                        </div>
+                        <div class="kpi-mini"><span class="kpi-icon">⚡</span>
+                            <div><strong>98.7%</strong>
+                                <p>Platform Uptime</p>
+                            </div>
+                        </div>
+                        <div class="kpi-mini"><span class="kpi-icon">⏱️</span>
+                            <div><strong>18 min</strong>
+                                <p>Avg. Response Time</p>
+                            </div>
+                        </div>
+                        <div class="kpi-mini"><span class="kpi-icon">✅</span>
+                            <div><strong>94%</strong>
+                                <p>Delivery Success Rate</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>📈 Monthly Meals Rescued (2025–2026)</h3>
+                            <canvas id="adminLineChart" height="240"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>🍩 Donations by Category</h3>
+                            <canvas id="adminPieChart" height="240"></canvas>
+                        </div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card chart-full">
+                            <h3>📊 City-wise Food Rescue Volume (Top 10 Cities)</h3>
+                            <canvas id="adminBarChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== ANALYTICS ===== -->
+                <section id="s-admin-analytics" class="dash-section hidden">
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>📈 Donors Growth</h3>
+                            <canvas id="analyticsLineChart" height="260"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>🌍 NGO Partner Growth</h3>
+                            <canvas id="analyticsNgoChart" height="260"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>📊 Donations vs Delivered</h3>
+                            <canvas id="analyticsDvDChart" height="260"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>🍩 Waste Reduction Breakdown</h3>
+                            <canvas id="analyticsWasteChart" height="260"></canvas>
+                        </div>
+                    </div>
+                    <div class="card" style="padding:24px;margin-top:20px;">
+                        <h3 style="margin-bottom:16px;">📊 SDG Impact Metrics</h3>
+                        <div class="sdg-progress-list">
+                            <div class="sdg-row">
+                                <span class="sdg-label">🏅 SDG 1 — No Poverty (Families served)</span>
+                                <div class="sdg-progress-bar">
+                                    <div style="width:78%;background:#e74c3c;"></div>
+                                </div>
+                                <span>78%</span>
+                            </div>
+                            <div class="sdg-row">
+                                <span class="sdg-label">🌾 SDG 2 — Zero Hunger (Meals redistributed)</span>
+                                <div class="sdg-progress-bar">
+                                    <div style="width:65%;background:#e6ac00;"></div>
+                                </div>
+                                <span>65%</span>
+                            </div>
+                            <div class="sdg-row">
+                                <span class="sdg-label">♻️ SDG 12 — Responsible Consumption (Waste reduced)</span>
+                                <div class="sdg-progress-bar">
+                                    <div style="width:82%;background:var(--primary);"></div>
+                                </div>
+                                <span>82%</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== MANAGE DONORS ===== -->
+                <section id="s-admin-donors" class="dash-section hidden">
+                    <div class="filter-bar">
+                        <input type="text" id="donorSearch" placeholder="🔍 Search donors…"
+                            oninput="filterAdminTable('donorSearch','donorsBody')" />
+                        <select id="donorCityFilter">
+                            <option value="">All Cities</option>
+                            <option>Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Bengaluru</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="showToast('Export ready!','success')"
+                            id="exportDonorsBtn">📥 Export CSV</button>
+                    </div>
+                    <div class="card" style="padding:24px;">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Donor Name</th>
+                                        <th>City</th>
+                                        <th>Total Donations</th>
+                                        <th>Meals Fed</th>
+                                        <th>Last Active</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="donorsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== MANAGE NGOS ===== -->
+                <section id="s-admin-ngos" class="dash-section hidden">
+                    <div class="filter-bar">
+                        <input type="text" id="ngoSearch" placeholder="🔍 Search NGOs…" />
+                        <button class="btn btn-primary btn-sm" onclick="showToast('NGO export ready!','success')"
+                            id="exportNgosBtn">📥 Export CSV</button>
+                    </div>
+                    <div class="card" style="padding:24px;">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>NGO Name</th>
+                                        <th>City</th>
+                                        <th>Pickups Done</th>
+                                        <th>Volunteers</th>
+                                        <th>Reg. No.</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ngosBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== ALL LISTINGS ===== -->
+                <section id="s-admin-listings" class="dash-section hidden">
+                    <div class="filter-bar">
+                        <input type="text" id="listingAdminSearch" placeholder="🔍 Search listings…" />
+                        <select id="listingAdminStatus">
+                            <option value="">All Statuses</option>
+                            <option>Available</option>
+                            <option>Accepted</option>
+                            <option>Delivered</option>
+                            <option>Expired</option>
+                        </select>
+                        <button class="btn btn-danger btn-sm" onclick="showToast('Expired listings cleared!','warning')"
+                            id="clearExpiredBtn">🗑️ Clear Expired</button>
+                    </div>
+                    <div class="card" style="padding:24px;">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Food Item</th>
+                                        <th>Donor</th>
+                                        <th>Qty</th>
+                                        <th>City</th>
+                                        <th>Posted</th>
+                                        <th>Expiry</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allListingsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== REPORTS ===== -->
+                <section id="s-admin-reports" class="dash-section hidden">
+                    <div class="reports-grid">
+                        <div class="report-card" onclick="showToast('Generating monthly report…','info')">
+                            <div class="report-icon">📅</div>
+                            <h4>Monthly Impact Report</h4>
+                            <p>Comprehensive data on meals rescued, donors, and NGOs for the current month.</p>
+                            <button class="btn btn-outline btn-sm" id="monthlyReportBtn">Download PDF</button>
+                        </div>
+                        <div class="report-card" onclick="showToast('Generating SDG report…','info')">
+                            <div class="report-icon">🇺🇳</div>
+                            <h4>SDG Compliance Report</h4>
+                            <p>Progress tracking against UN Sustainable Development Goals 1, 2, and 12.</p>
+                            <button class="btn btn-outline btn-sm" id="sdgReportBtn">Download PDF</button>
+                        </div>
+                        <div class="report-card" onclick="showToast('Generating donor report…','info')">
+                            <div class="report-icon">🏢</div>
+                            <h4>Donor Activity Report</h4>
+                            <p>Individual donor performance, frequency, and meal contribution data.</p>
+                            <button class="btn btn-outline btn-sm" id="donorReportBtn">Download CSV</button>
+                        </div>
+                        <div class="report-card" onclick="showToast('Generating NGO report…','info')">
+                            <div class="report-icon">🤝</div>
+                            <h4>NGO Performance Report</h4>
+                            <p>Pickup success rates, volunteer counts, and city-wise breakdowns for all NGOs.</p>
+                            <button class="btn btn-outline btn-sm" id="ngoReportBtn">Download CSV</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== SETTINGS ===== -->
+                <section id="s-admin-settings" class="dash-section hidden">
+                    <div class="form-card">
+                        <h3 style="margin-bottom:24px;">🔧 System Settings</h3>
+                        <div class="settings-group">
+                            <div class="settings-row">
+                                <div>
+                                    <strong>Expiry Alert Window</strong>
+                                    <p>Notify NGOs when food will expire within:</p>
+                                </div>
+                                <select
+                                    style="width:140px;padding:8px 12px;border:2px solid var(--border);border-radius:8px;font-family:inherit;">
+                                    <option>30 minutes</option>
+                                    <option selected>1 hour</option>
+                                    <option>2 hours</option>
+                                    <option>4 hours</option>
+                                </select>
+                            </div>
+                            <div class="settings-row">
+                                <div>
+                                    <strong>Auto-expire Stale Listings</strong>
+                                    <p>Automatically mark listings as expired after the window passes.</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked id="autoExpireToggle" />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="settings-row">
+                                <div>
+                                    <strong>Email Notifications</strong>
+                                    <p>Send email alerts to NGOs for new food listings.</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked id="emailNotifToggle" />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="settings-row">
+                                <div>
+                                    <strong>Platform Maintenance Mode</strong>
+                                    <p>Temporarily disable new listings and pickups.</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="maintenanceToggle" />
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions" style="margin-top:28px;">
+                            <button class="btn btn-primary"
+                                onclick="showToast('Settings saved successfully!','success')" id="saveSettingsBtn">💾
+                                Save Settings</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+
+</html>

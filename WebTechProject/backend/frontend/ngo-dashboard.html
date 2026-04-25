@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NGO Dashboard — MealMitra</title>
+    <meta name="description" content="Browse and accept available surplus food donations in your city." />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        .urgent-flag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: #fff;
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 9999px;
+            letter-spacing: .5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <div class="dashboard-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <div class="s-icon">🌾</div>
+                    <span>MealMitra</span>
+                </a>
+            </div>
+            <div class="sidebar-user">
+                <div class="user-avatar">🤝</div>
+                <h4>HelpHand NGO</h4>
+                <p>NGO Account · Bengaluru</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="ngoShowSection('ngo-overview')">
+                    <span class="nav-icon">📊</span> Overview
+                </div>
+                <div class="nav-item" onclick="ngoShowSection('available-food')">
+                    <span class="nav-icon">🍽️</span> Available Food
+                    <span class="nav-badge" id="foodBadge">8</span>
+                </div>
+                <div class="nav-item" onclick="ngoShowSection('accepted')">
+                    <span class="nav-icon">✅</span> Accepted Pickups
+                </div>
+                <div class="nav-item" onclick="ngoShowSection('volunteers')">
+                    <span class="nav-icon">🙋</span> Volunteers
+                </div>
+                <div class="nav-item" onclick="ngoShowSection('ngo-impact')">
+                    <span class="nav-icon">🌱</span> Impact
+                </div>
+                <div class="nav-item" onclick="ngoShowSection('ngo-profile')">
+                    <span class="nav-icon">⚙️</span> Settings
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="nav-item" style="text-decoration:none;">
+                    <span class="nav-icon">🚪</span> Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">☰</button>
+                    <h2 id="ngoPageTitle">📊 Overview</h2>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-icon" title="Urgent Alert" style="position:relative;">🔔
+                        <span class="notif-dot"></span>
+                    </div>
+                    <div class="topbar-icon">❓</div>
+                    <div class="d-date" id="ngoDate"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+
+                <!-- ===== NGO OVERVIEW ===== -->
+                <section id="s-ngo-overview" class="dash-section">
+                    <div class="welcome-bar">
+                        <div>
+                            <h3>Welcome back, HelpHand NGO! 🤲</h3>
+                            <p><strong id="ngoUrgentCount">3 urgent listings</strong> are expiring within the hour near
+                                you.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="ngoShowSection('available-food')"
+                            id="viewFoodBtn">🍽️ View Available Food</button>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <div class="summary-icon si-green">✅</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="312">0</h3>
+                                <p>Pickups Completed</p>
+                                <span class="trend trend-up">↑ 18 this week</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-orange">⏳</div>
+                            <div class="summary-info">
+                                <h3>4</h3>
+                                <p>Pending Pickups</p>
+                                <span class="trend">Today</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-blue">🍽️</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="8960">0</h3>
+                                <p>Meals Served</p>
+                                <span class="trend trend-up">↑ 5% this month</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-red">🙋</div>
+                            <div class="summary-info">
+                                <h3>42</h3>
+                                <p>Active Volunteers</p>
+                                <span class="trend trend-up">↑ 6 new this week</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-grid">
+                        <div class="chart-card">
+                            <h3>📈 Monthly Pickups</h3>
+                            <canvas id="ngoLineChart" height="220"></canvas>
+                        </div>
+                        <div class="card recent-activity-card">
+                            <div class="card-header">
+                                <h3>🔔 Live Food Alerts</h3>
+                            </div>
+                            <div class="activity-list" id="ngoAlertList"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== AVAILABLE FOOD ===== -->
+                <section id="s-available-food" class="dash-section hidden">
+                    <div class="filter-bar">
+                        <input type="text" id="ngoSearch" placeholder="🔍 Search by food or donor…"
+                            oninput="filterNgoFood()" />
+                        <select id="ngoLocationFilter" onchange="filterNgoFood()">
+                            <option value="">All Locations</option>
+                            <option>Whitefield</option>
+                            <option>Koramangala</option>
+                            <option>Indiranagar</option>
+                            <option>HSR Layout</option>
+                            <option>JP Nagar</option>
+                        </select>
+                        <select id="ngoStatusFilter" onchange="filterNgoFood()">
+                            <option value="">All</option>
+                            <option value="available">Available</option>
+                            <option value="urgent">Urgent (expiring soon)</option>
+                        </select>
+                        <select id="ngoCategoryFilter" onchange="filterNgoFood()">
+                            <option value="">All Categories</option>
+                            <option>Cooked Meals</option>
+                            <option>Bakery</option>
+                            <option>Fruits</option>
+                            <option>Snacks</option>
+                        </select>
+                    </div>
+                    <div class="urgent-alert-banner" id="urgentBanner">
+                        ⚡ <strong>3 food listings</strong> are expiring within the next 60 minutes — act fast!
+                    </div>
+                    <div class="food-cards-grid" id="ngoFoodGrid"></div>
+                </section>
+
+                <!-- ===== ACCEPTED PICKUPS ===== -->
+                <section id="s-accepted" class="dash-section hidden">
+                    <div class="card" style="padding:24px;">
+                        <h3 style="margin-bottom:20px;">✅ Accepted Pickups</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Food Item</th>
+                                        <th>Donor</th>
+                                        <th>Qty</th>
+                                        <th>Pickup Time</th>
+                                        <th>Volunteer</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="acceptedBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== VOLUNTEERS ===== -->
+                <section id="s-volunteers" class="dash-section hidden">
+                    <div class="filter-bar">
+                        <input type="text" placeholder="🔍 Search volunteers…" />
+                        <button class="btn btn-primary btn-sm"
+                            onclick="showToast('Volunteer invitation sent!','success')" id="inviteVolBtn">📨 Invite
+                            Volunteer</button>
+                    </div>
+                    <div class="volunteers-grid" id="volunteersGrid"></div>
+                </section>
+
+                <!-- ===== NGO IMPACT ===== -->
+                <section id="s-ngo-impact" class="dash-section hidden">
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <div class="summary-icon si-green">🍽️</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="8960">0</h3>
+                                <p>Meals Served Total</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-orange">🌿</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="1240">0</h3>
+                                <p>kg CO₂ Saved</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-blue">👨‍👩‍👧</div>
+                            <div class="summary-info">
+                                <h3 class="count-up" data-target="2200">0</h3>
+                                <p>Beneficiaries Reached</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon si-red">🙋</div>
+                            <div class="summary-info">
+                                <h3>42</h3>
+                                <p>Active Volunteers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>🍩 Food Categories Accepted</h3>
+                            <canvas id="ngoPieChart" height="260"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>📊 Weekly Pickups</h3>
+                            <canvas id="ngoBarChart" height="260"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ===== NGO PROFILE ===== -->
+                <section id="s-ngo-profile" class="dash-section hidden">
+                    <div class="form-card">
+                        <h3 style="margin-bottom:24px;">⚙️ NGO Profile Settings</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>NGO Name</label><input type="text" value="HelpHand NGO" />
+                            </div>
+                            <div class="form-group"><label>Registration No.</label><input type="text"
+                                    value="NGO-KA-2021-8823" /></div>
+                        </div>
+                        <div class="form-group"><label>Email</label><input type="email" value="contact@helphand.org" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Phone</label><input type="tel" value="+91 8899776655" />
+                            </div>
+                            <div class="form-group"><label>City</label><select>
+                                    <option selected>Bengaluru</option>
+                                </select></div>
+                        </div>
+                        <div class="form-group"><label>Service Areas</label><input type="text"
+                                value="Whitefield, Koramangala, Indiranagar, HSR Layout" /></div>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" onclick="showToast('NGO profile updated!','success')"
+                                id="ngoSaveBtn">💾 Save Changes</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ACCEPT MODAL -->
+    <div class="modal-overlay" id="acceptModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>🤝 Confirm Pickup Acceptance</h3>
+                <button class="modal-close" onclick="closeModal('acceptModal')">✕</button>
+            </div>
+            <p id="acceptModalDesc" style="color:var(--text-medium);margin-bottom:20px;line-height:1.7;"></p>
+            <div class="form-group">
+                <label for="assignVolunteer">Assign Volunteer</label>
+                <select id="assignVolunteer">
+                    <option>Arjun Patel (Available)</option>
+                    <option>Sonal Mehta (Available)</option>
+                    <option>Rahul Kumar (On route)</option>
+                    <option>Priya Das (Available)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pickupNotes">Pickup Notes</label>
+                <textarea id="pickupNotes" placeholder="Special instructions…" style="height:80px;"></textarea>
+            </div>
+            <div style="display:flex;gap:12px;justify-content:flex-end;">
+                <button class="btn btn-outline" onclick="closeModal('acceptModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmAccept()" id="confirmAcceptBtn">✅ Confirm
+                    Acceptance</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/ngo.js"></script>
+</body>
+
+</html>

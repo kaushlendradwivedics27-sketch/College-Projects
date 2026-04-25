@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MealMitra — Smart Surplus Food Redistribution Platform</title>
+    <meta name="description"
+        content="MealMitra connects food donors with NGOs and volunteers to reduce food waste and fight hunger — aligned with UN SDGs 1, 2 & 12." />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">🌾</div>
+                    <span>Meal<em>Mitra</em></span>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#sdg">Our Mission</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-outline btn-sm" id="loginBtn">Log In</a>
+                    <a href="login.html#register" class="btn btn-primary btn-sm" id="joinBtn">Join Free</a>
+                    <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">☰</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-tag">Save The Food </div>
+                    <h1 class="hero-title">
+                        Turning Surplus Food<br />
+                        Into <span class="highlight">Hope &amp; Nourishment</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        MealMitra connects restaurants, events, and hostels with NGOs and volunteers to rescue surplus
+                        food before it goes to waste — fighting hunger one meal at a time.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="login.html" class="btn btn-primary btn-lg" id="herodonateBtn">
+                            🍽️ Donate Food
+                        </a>
+                        <a href="login.html" class="btn btn-outline btn-lg" id="heroNgoBtn">
+                            🤝 Register as NGO
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hstat">
+                            <strong class="count-up" data-target="12400">0</strong>
+                            <span>Meals Rescued</span>
+                        </div>
+                        <div class="hstat-divider"></div>
+                        <div class="hstat">
+                            <strong class="count-up" data-target="340">0</strong>
+                            <span>Active Donors</span>
+                        </div>
+                        <div class="hstat-divider"></div>
+                        <div class="hstat">
+                            <strong class="count-up" data-target="89">0</strong>
+                            <span>Partner NGOs</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="hero-visual">
+                    <div class="hero-card-stack">
+                         <div class="floating-card fc-1">
+                            <span class="fc-icon">🥗</span>
+                            <div>
+                                <strong>Fresh Salads</strong>
+                                <p>Qty: 40 servings · 2h left</p>
+                            </div>
+                            <span class="badge badge-available">Available</span>
+                        </div>
+                         <div class="floating-card fc-2">
+                            <span class="fc-icon">🍛</span>
+                            <div>
+                                <strong>Rice &amp; Curry</strong>
+                                <p>Qty: 80 servings · 45m left</p>
+                            </div>
+                            <span class="badge badge-urgent">Urgent!</span>
+                        </div>
+                        <div class="floating-card fc-3">
+                            <span class="fc-icon">🧁</span>
+                            <div>
+                                <strong>Bakery Items</strong>
+                                <p>Qty: 60 pieces · 3h left</p>
+                            </div> 
+                            <span class="badge badge-accepted">Accepted</span>
+                        </div>
+                        <div class="hero-map-blob">
+                            <div class="map-pin pin-a">📍</div>
+                            <div class="map-pin pin-b">📍</div>
+                            <div class="map-pin pin-c">📍</div>
+                        </div> 
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PARTNER LOGOS ===== -->
+    <section class="partners-bar">
+        <div class="container">
+            <p class="partners-label">Trusted by food partners across the country</p>
+            <div class="partners-track">
+                <span>🍕 Domino's</span><span>🏨 Marriott</span><span>🎓 IIT Canteen</span>
+                <span>🍜 Zomato</span><span>🏥 Apollo Cafeteria</span><span>🎪 Event Catering Co.</span>
+                <span>🏫 School Hostel</span><span>🛒 BigMart</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SDG SECTION ===== -->
+    <section class="section sdg-section" id="sdg">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Mission</span>
+                <h2>Powered by the  Sustainable Development </h2>
+                <p>Every donation on MealMitra contributes directly to three critical global goals.</p>
+            </div>
+            <div class="sdg-grid">
+                <div class="sdg-card sdg-card-1">
+                    <div class="sdg-icon">🏅</div>
+                    <div class="sdg-number">SDG 1</div>
+                    <h3>No Poverty</h3>
+                    <p>By redirecting surplus food to vulnerable communities, we help reduce the burden of food expenses
+                        for families living in poverty.</p>
+                    <div class="sdg-bar">
+                        <div class="sdg-bar-fill" style="width:78%"></div>
+                    </div>
+                    <span class="sdg-pct">78% impact achieved</span>
+                </div>
+                <div class="sdg-card sdg-card-2">
+                    <div class="sdg-icon">🌾</div>
+                    <div class="sdg-number">SDG 2</div>
+                    <h3>Zero Hunger</h3>
+                    <p>Our platform ensures that nutritious food reaches those who need it most — eliminating hunger one
+                        meal at a time through real-time coordination.</p>
+                    <div class="sdg-bar">
+                        <div class="sdg-bar-fill" style="width:65%"></div>
+                    </div>
+                    <span class="sdg-pct">65% impact achieved</span>
+                </div>
+                <div class="sdg-card sdg-card-3">
+                    <div class="sdg-icon">♻️</div>
+                    <div class="sdg-number">SDG 12</div>
+                    <h3>Responsible Consumption</h3>
+                    <p>We tackle food waste at the source — connecting surplus food to those in need before it ends up
+                        in landfills, reducing environmental impact.</p>
+                    <div class="sdg-bar">
+                        <div class="sdg-bar-fill" style="width:82%"></div>
+                    </div>
+                    <span class="sdg-pct">82% impact achieved</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="section how-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Simple Process</span>
+                <h2>How MealMitra Works</h2>
+                <p>Three easy steps to transform surplus food into impact.</p>
+            </div>
+            <div class="steps-wrapper">
+                <div class="step-connector"></div>
+                <div class="steps-grid">
+                    <div class="step-card" id="step1">
+                        <div class="step-number">01</div>
+                        <div class="step-icon">📋</div>
+                        <h3>List Surplus Food</h3>
+                        <p>Donors — restaurants, event organizers, hostels — list available food with quantity,
+                            location, and expiry time.</p>
+                        <div class="step-cta"><a href="login.html" class="btn btn-outline btn-sm">Start Donating →</a>
+                        </div>
+                    </div>
+                    <div class="step-card" id="step2">
+                        <div class="step-number">02</div>
+                        <div class="step-icon">🔔</div>
+                        <h3>NGO Gets Notified</h3>
+                        <p>Nearby NGOs and volunteers automatically receive alerts about available food and can accept
+                            pickups instantly.</p>
+                        <div class="step-cta"><a href="login.html" class="btn btn-outline btn-sm">Join as NGO →</a>
+                        </div>
+                    </div>
+                    <div class="step-card" id="step3">
+                        <div class="step-number">03</div>
+                        <div class="step-icon">🚚</div>
+                        <h3>Food Gets Delivered</h3>
+                        <p>Volunteers coordinate pickup and delivery, ensuring food reaches beneficiaries before it
+                            expires.</p>
+                        <div class="step-cta"><a href="login.html" class="btn btn-outline btn-sm">Volunteer →</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== IMPACT SECTION ===== -->
+    <section class="section impact-section" id="impact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Real Impact</span>
+                <h2>Numbers That Tell Our Story</h2>
+                <p>Every statistic represents real people, real meals, and real change.</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-icon">🍽️</div>
+                    <h3 class="count-up big-count" data-target="124650">0</h3>
+                    <p>Meals Redistributed</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🏢</div>
+                    <h3 class="count-up big-count" data-target="340">0</h3>
+                    <p>Active Food Donors</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🤝</div>
+                    <h3 class="count-up big-count" data-target="89">0</h3>
+                    <p>NGO Partners</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🌍</div>
+                    <h3 class="count-up big-count" data-target="47">0</h3>
+                    <p>Cities Covered</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🌱</div>
+                    <h3 class="count-up big-count" data-target="28500">0</h3>
+                    <p>kg CO₂ Emissions Saved</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">👥</div>
+                    <h3 class="count-up big-count" data-target="6200">0</h3>
+                    <p>Volunteers Active</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Stories</span>
+                <h2>What Our Community Says</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="t-quote">❝</div>
+                    <p>"MealMitra helped us redirect over 200 kg of food from our hotel's events every week. It's
+                        seamless and deeply rewarding."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">🏨</div>
+                        <div>
+                            <strong>Ravi Mehta</strong>
+                            <span>Operations Head, Grand Palace Hotel</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="t-quote">❝</div>
+                    <p>"As an NGO, the platform is a game changer. We now serve 500+ additional meals per day without
+                        any extra fundraising effort."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">🤲</div>
+                        <div>
+                            <strong>Priya Sharma</strong>
+                            <span>Director, HelpHand NGO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="t-quote">❝</div>
+                    <p>"Volunteering through MealMitra is one of the most fulfilling things I've done. Easy to use and
+                        incredibly impactful."</p>
+                    <div class="t-author">
+                        <div class="t-avatar">🙋</div>
+                        <div>
+                            <strong>Arjun Patel</strong>
+                            <span>Volunteer, Bengaluru Chapter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-inner">
+                <div class="cta-text">
+                    <span class="section-tag" style="background:rgba(255,255,255,0.15);color:#fff;">Take Action</span>
+                    <h2>Ready to Make a Difference?</h2>
+                    <p>Join hundreds of donors, NGOs, and volunteers already transforming surplus food into nourishment
+                        across the country.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="login.html" class="btn btn-secondary btn-lg" id="ctaDonateBtn">Donate Food Today</a>
+                    <a href="login.html" class="btn btn-white btn-lg" id="ctaNgoBtn">Register Your NGO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo footer-logo">
+                        <div class="logo-icon">🌾</div>
+                        <span style="color:#fff">Meal<em
+                                style="color:var(--secondary);font-style:normal">Mitra</em></span>
+                    </a>
+                    <p>Connecting surplus food with communities in need. Fighting hunger, reducing waste, one meal at a
+                        time.</p>
+                </div>
+                <div>
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="login.html">Donor Portal</a></li>
+                        <li><a href="login.html">NGO Portal</a></li>
+                        <li><a href="admin-dashboard.html">Admin Dashboard</a></li>
+                        <li><a href="#">Volunteer Hub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Food Safety Guidelines</a></li>
+                        <li><a href="#">NGO Registration Guide</a></li>
+                        <li><a href="#">Impact Reports</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hello@mealmitra.org">📧 hello@mealmitra.org</a></li>
+                        <li><a href="#">📞 1800-FOOD-AID</a></li>
+                        <li><a href="#">🐦 @MealMitraOrg</a></li>
+                        <li><a href="#">💼 LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 MealMitra. All rights reserved. Made with 💚 for humanity.</p>
+                <div class="sdg-badges">
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/js/script.js"></script>
+</body>
+
+</html>

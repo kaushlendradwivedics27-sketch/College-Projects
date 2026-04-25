@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Register — MealMitra</title>
+    <meta name="description" content="Sign in or create your MealMitra account as a Donor, NGO, or Admin." />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- Left Panel -->
+        <div class="auth-panel-left">
+            <div class="auth-branding">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-icon">🌾</div>
+                    <span>Meal<em>Mitra</em></span>
+                </a>
+                <h2>Every Meal Saved Is a Life Changed.</h2>
+                <p>Join thousands of donors, NGOs, and volunteers on the most impactful food redistribution network in
+                    the country.</p>
+                <div class="auth-stats">
+                    <div class="astat"><strong>12,400+</strong><span>Meals Rescued</span></div>
+                    <div class="astat"><strong>340+</strong><span>Donors</span></div>
+                    <div class="astat"><strong>89</strong><span>NGOs</span></div>
+                </div>
+                <div class="auth-sdg-row">
+                    <span class="sdg-badge sdg-1">SDG 1</span>
+                    <span class="sdg-badge sdg-2">SDG 2</span>
+                    <span class="sdg-badge sdg-12">SDG 12</span>
+                </div>
+            </div>
+            <div class="auth-left-bg">
+                <div class="auth-float-el el-1">🍲</div>
+                <div class="auth-float-el el-2">🥗</div>
+                <div class="auth-float-el el-3">♻️</div>
+                <div class="auth-float-el el-4">🌾</div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="auth-panel-right">
+            <div class="auth-card" id="authCard">
+                <!-- Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+                    <button class="auth-tab" id="registerTab" onclick="switchTab('register')">Register</button>
+                </div>
+
+                <!-- Role Selector -->
+                <div class="role-selector">
+                    <p class="role-label">I am a:</p>
+                    <div class="role-options">
+                        <button class="role-btn active" id="roleDonor" onclick="selectRole('donor', this)">
+                            <span class="role-icon">🍽️</span>
+                            <span class="role-name">Donor</span>
+                            <span class="role-sub">Restaurant / Event</span>
+                        </button>
+                        <button class="role-btn" id="roleNgo" onclick="selectRole('ngo', this)">
+                            <span class="role-icon">🤝</span>
+                            <span class="role-name">NGO</span>
+                            <span class="role-sub">Organization</span>
+                        </button>
+                        <button class="role-btn" id="roleAdmin" onclick="selectRole('admin', this)">
+                            <span class="role-icon">⚙️</span>
+                            <span class="role-name">Admin</span>
+                            <span class="role-sub">Platform Admin</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="loginEmail" placeholder="you@example.com" required />
+                        </div>
+                        <div class="field-error" id="loginEmailErr"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="loginPassword" placeholder="••••••••" required />
+                            <button type="button" class="pw-toggle"
+                                onclick="togglePw('loginPassword', this)">👁</button>
+                        </div>
+                        <div class="field-error" id="loginPasswordErr"></div>
+                    </div>
+                    <div class="form-row-inline">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" /> Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full" id="loginSubmitBtn">
+                        Sign In <span id="loginSpinner" class="spinner hidden"></span>
+                    </button>
+                    <p class="auth-switch">Don't have an account? <a onclick="switchTab('register')">Register here</a>
+                    </p>
+                </form>
+
+                <!-- REGISTER FORM -->
+                <form id="registerForm" class="auth-form hidden" onsubmit="handleRegister(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="regFirstName">First Name</label>
+                            <input type="text" id="regFirstName" placeholder="Ravi" required />
+                            <div class="field-error" id="regFirstNameErr"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="regLastName">Last Name</label>
+                            <input type="text" id="regLastName" placeholder="Mehta" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regOrg">Organization Name</label>
+                        <input type="text" id="regOrg" placeholder="Hotel Grand / HelpHand NGO" required />
+                        <div class="field-error" id="regOrgErr"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email Address</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="regEmail" placeholder="you@example.com" required />
+                        </div>
+                        <div class="field-error" id="regEmailErr"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPhone">Phone Number</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">📱</span>
+                            <input type="tel" id="regPhone" placeholder="+91 9876543210" required />
+                        </div>
+                        <div class="field-error" id="regPhoneErr"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regCity">City</label>
+                        <select id="regCity" required>
+                            <option value="">Select City</option>
+                            <option>Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Bengaluru</option>
+                            <option>Chennai</option>
+                            <option>Hyderabad</option>
+                            <option>Kolkata</option>
+                            <option>Pune</option>
+                            <option>Ahmedabad</option>
+                            <option>Jaipur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="regPassword" placeholder="Min. 8 characters" required />
+                            <button type="button" class="pw-toggle" onclick="togglePw('regPassword', this)">👁</button>
+                        </div>
+                        <div class="password-strength" id="pwStrength">
+                            <div class="pw-bar">
+                                <div class="pw-bar-fill" id="pwBarFill"></div>
+                            </div>
+                            <span id="pwStrengthLabel">Weak</span>
+                        </div>
+                        <div class="field-error" id="regPasswordErr"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regConfirm">Confirm Password</label>
+                        <div class="input-icon-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="regConfirm" placeholder="Repeat password" required />
+                        </div>
+                        <div class="field-error" id="regConfirmErr"></div>
+                    </div>
+                    <label class="checkbox-label agree-check">
+                        <input type="checkbox" id="agreeTerms" required />
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                    <button type="submit" class="btn btn-primary w-full" id="regSubmitBtn">
+                        Create Account <span id="regSpinner" class="spinner hidden"></span>
+                    </button>
+                    <p class="auth-switch">Already have an account? <a onclick="switchTab('login')">Sign in</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="/js/api.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
